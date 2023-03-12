@@ -5,6 +5,7 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     public float noteSpeed = 400;
+    Vector3 orgScale = new Vector3(1, 1, 1);
 
     UnityEngine.UI.Image noteImage;
 
@@ -14,6 +15,7 @@ public class Note : MonoBehaviour
             noteImage = GetComponent<UnityEngine.UI.Image>();
 
         noteImage.enabled = true;
+        transform.localScale = orgScale;
     }
     private void Update()
     {

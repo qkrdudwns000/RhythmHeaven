@@ -28,7 +28,7 @@ public class TimingManager : MonoBehaviour
         }
     }
 
-    public void CheckTiming()
+    public bool CheckTiming()
     {
         for(int i = 0; i < circleNoteList.Count; i++)
         {
@@ -47,12 +47,13 @@ public class TimingManager : MonoBehaviour
                     theEffectManager.JudgementEffect(j);
                     // 점수 증가
                     theScoreManager.IncreaseScore(j);
-                    return;
+                    return true;
                 }
             }
         }
         // Miss 판정.
         theScoreManager.ResetCombo();
-        theEffectManager.JudgementEffect(timingBoxs.Length); 
+        theEffectManager.JudgementEffect(timingBoxs.Length);
+        return false;
     }
 }
