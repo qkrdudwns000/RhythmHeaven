@@ -9,15 +9,20 @@ public class TimingManager : MonoBehaviour
     [SerializeField] Transform Center = null;
     [SerializeField] RectTransform[] timingRect = null;
     Vector2[] timingBoxs = null; // x = 최소값, y = 최대값 으로 활용할 것임. 
+    Vector3 tempPos;
 
     EffectManager theEffectManager;
     ScoreManager theScoreManager;
+    StageManager theStageManager;
+    PlayerController thePlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         theEffectManager = FindObjectOfType<EffectManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();
+        theStageManager = FindObjectOfType<StageManager>();
+        thePlayer = FindObjectOfType<PlayerController>();
 
         timingBoxs = new Vector2[timingRect.Length];
         // 타이밍 박스 설정(최소, 최대 범위)
@@ -42,11 +47,20 @@ public class TimingManager : MonoBehaviour
                     circleNoteList[i].GetComponent<Note>().HideNote();
                     circleNoteList.RemoveAt(i);
                     // 이펙트 연출
-                    if(j < timingBoxs.Length - 1) // bad판정 제외를 위한 if문.
-                       theEffectManager.NoteHitEffect();
+                    if (j < timingBoxs.Length - 1) // bad판정 제외를 위한 if문.
+                    {
+                        theEffectManager.NoteHitEffect();
+                    }
                     theEffectManager.JudgementEffect(j);
-                    // 점수 증가
-                    theScoreManager.IncreaseScore(j);
+                    
+                    if (CheckCanNextPlate())
+                    {
+                        // 점수 증가
+                        theScoreManager.IncreaseScore(j);
+                        // 발판 생성
+                        theStageManager.ShowNextPlate();
+                    }
+
                     return true;
                 }
             }
@@ -54,6 +68,24 @@ public class TimingManager : MonoBehaviour
         // Miss 판정.
         theScoreManager.ResetCombo();
         theEffectManager.JudgementEffect(timingBoxs.Length);
+        return false;
+    }
+
+    bool CheckCanNextPlate()
+    {
+        tempPos = new Vector3(thePlayer.destPos.x, 0.3f, thePlayer.destPos.z);
+        if (Physics.Raycast(tempPos, Vector3.down, out RaycastHit hitInfo, 1.1f))
+        {
+            if (hitInfo.transform.CompareTag("GrassPlate"))
+            {
+                GrassPlate plate = hitInfo.transform.GetComponent<GrassPlate>();
+                if (plate.flag)
+                {
+                    plate.flag = false;
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

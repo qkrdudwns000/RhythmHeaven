@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 3f;
     Vector3 dir = new Vector3();
-    Vector3 destPos = new Vector3();
+    public Vector3 destPos = new Vector3();
     string move = "Move";
     bool canMove = true;
 
@@ -17,21 +17,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform realSlime = null;
 
     TimingManager theTimingManager;
+    CameraController theCam;
     Animator myAnim;
 
     private void Start()
     {
         myAnim = GetComponentInChildren<Animator>();
         theTimingManager = FindObjectOfType<TimingManager>();
+        theCam = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (canMove)
             {
+                Calc();
                 if (theTimingManager.CheckTiming())
                 {
                     StartAction();
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    void StartAction()
+    void Calc()
     {
         // 방향 계산
         dir.Set(Input.GetAxisRaw("Vertical"), 0, -Input.GetAxisRaw("Horizontal"));
@@ -50,10 +53,15 @@ public class PlayerController : MonoBehaviour
         // 회전 목표값 계산
         fakeSlime.rotation = Quaternion.LookRotation(dir);
         destRot = fakeSlime.rotation;
+    }
 
+    void StartAction()
+    {
+        myAnim.ResetTrigger(move);
         myAnim.SetTrigger(move);
         StartCoroutine(MoveCo());
         StartCoroutine(RotCo());
+        StartCoroutine(theCam.ZoomCam());
     }
 
     IEnumerator MoveCo()
