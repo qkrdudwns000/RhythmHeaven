@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] TMPro.TMP_Text txtCombo = null;
 
     int currentCombo = 0;
+    int maxCombo = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,9 @@ public class ScoreManager : MonoBehaviour
         currentCombo += _num;
         txtCombo.text = string.Format("{0:#,##0}", currentCombo);
 
+        if (maxCombo < currentCombo)
+            maxCombo = currentCombo;
+
         if(currentCombo >2)
         {
             txtCombo.gameObject.SetActive(true);
@@ -74,5 +78,18 @@ public class ScoreManager : MonoBehaviour
     {
         txtCombo.gameObject.SetActive(false);
         go_ComboImage.SetActive(false);
+    }
+
+    public int GetScoreAndCombo(int choice)
+    {
+        if(choice == 1)
+        {
+            return currentScore;
+        }
+        else if(choice == 2)
+        {
+            return maxCombo;
+        }
+        return 0;
     }
 }

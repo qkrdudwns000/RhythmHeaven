@@ -34,6 +34,9 @@ public class StageManager : MonoBehaviour
         if (stepCount < totalPlateCount)
         {
             StartCoroutine(MovePlateCo(stepCount++));
+        }
+        if(removeCount < totalPlateCount)
+        {
             StartCoroutine(RemovePlateCo(removeCount++));
         }
     }

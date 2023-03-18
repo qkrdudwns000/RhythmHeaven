@@ -6,6 +6,8 @@ public class TimingManager : MonoBehaviour
 {
     public List<GameObject> circleNoteList = new List<GameObject>(); // 생성된 노트들
 
+    int[] judgementRecord = new int[5];
+
     [SerializeField] Transform Center = null;
     [SerializeField] RectTransform[] timingRect = null;
     Vector2[] timingBoxs = null; // x = 최소값, y = 최대값 으로 활용할 것임. 
@@ -59,6 +61,8 @@ public class TimingManager : MonoBehaviour
                         theScoreManager.IncreaseScore(j);
                         // 발판 생성
                         theStageManager.ShowNextPlate();
+                        // 판정 기록
+                        judgementRecord[j]++;
                     }
 
                     return true;
@@ -68,6 +72,7 @@ public class TimingManager : MonoBehaviour
         // Miss 판정.
         theScoreManager.ResetCombo();
         theEffectManager.JudgementEffect(timingBoxs.Length);
+        MissRecord();
         return false;
     }
 
@@ -87,5 +92,14 @@ public class TimingManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public int[] GetJudgementRecord()
+    {
+        return judgementRecord;
+    }
+    public void MissRecord()
+    {
+        judgementRecord[4]++;
     }
 }

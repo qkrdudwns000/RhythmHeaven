@@ -7,6 +7,8 @@ public class NoteManager : MonoBehaviour
     public int bpm = 0;
     double currentTime = 0d;
 
+    bool NoteActive = true;
+
     [SerializeField] Transform tfNoteAppear = null; // 노트 나오는 위치.
 
     TimingManager theTimingManager;
@@ -23,15 +25,18 @@ public class NoteManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime += Time.deltaTime;
-
-        if (currentTime >= 60d / bpm)
+        if (NoteActive)
         {
-            GameObject note = ObjectPool.inst.noteQueue.Dequeue();
-            note.transform.position = tfNoteAppear.position;
-            note.SetActive(true);
-            theTimingManager.circleNoteList.Add(note); // 노트 판정리스트에 추가.
-            currentTime -= 60d / bpm; // 0은안됨. 정확하지않고 double이기때문에, 더한만큼 그대로 빼줘야 정확히 상쇄됨.
+            currentTime += Time.deltaTime;
+
+            if (currentTime >= 60d / bpm)
+            {
+                GameObject note = ObjectPool.inst.noteQueue.Dequeue();
+                note.transform.position = tfNoteAppear.position;
+                note.SetActive(true);
+                theTimingManager.circleNoteList.Add(note); // 노트 판정리스트에 추가.
+                currentTime -= 60d / bpm; // 0은안됨. 정확하지않고 double이기때문에, 더한만큼 그대로 빼줘야 정확히 상쇄됨.
+            }
         }
     }
 
@@ -43,6 +48,7 @@ public class NoteManager : MonoBehaviour
             // 노트를 못치고 놓쳤을 경우 (image화성화된채로)
             if (collision.GetComponent<Note>().GetNoteFlag())
             {
+                theTimingManager.MissRecord();
                 theEffectManager.JudgementEffect(4);
                 theScoreManager.ResetCombo();
             }
@@ -51,6 +57,17 @@ public class NoteManager : MonoBehaviour
 
             ObjectPool.inst.noteQueue.Enqueue(collision.gameObject);
             collision.gameObject.SetActive(false);
+        }
+    }
+
+    public void RemoveNote()
+    {
+        NoteActive = false;
+
+        for (int i = 0; i < theTimingManager.circleNoteList.Count; i++)
+        {
+            theTimingManager.circleNoteList[i].SetActive(false);
+            ObjectPool.inst.noteQueue.Enqueue(theTimingManager.circleNoteList[i]);
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static bool isCanPressKey = true;
+
     [SerializeField] float moveSpeed = 3f;
     Vector3 dir = new Vector3();
     public Vector3 destPos = new Vector3();
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (canMove)
+            if (canMove && isCanPressKey)
             {
                 Calc();
                 if (theTimingManager.CheckTiming())
