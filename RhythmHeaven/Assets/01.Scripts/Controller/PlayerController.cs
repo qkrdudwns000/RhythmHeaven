@@ -9,8 +9,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed = 3f;
     Vector3 dir = new Vector3();
     public Vector3 destPos = new Vector3();
+    Vector3 tempY = new Vector3(0, 0.5f, 0); // Ray쏘기위한 여유 y값
+    Vector3 orgPos = new Vector3(); // 추락했을 경우 원래 위치로 돌아오기 위한 위치값.
+
     string move = "Move";
     bool canMove = true;
+    bool isFalling = false; // 추락 유무 값
 
     [SerializeField] float SpinSpeed = 180f;
     Quaternion destRot = new Quaternion();
@@ -20,22 +24,34 @@ public class PlayerController : MonoBehaviour
 
     TimingManager theTimingManager;
     CameraController theCam;
+    StatusManager theStatusManager;
     Animator myAnim;
+    Rigidbody myRigid;
 
     private void Start()
     {
         myAnim = GetComponentInChildren<Animator>();
         theTimingManager = FindObjectOfType<TimingManager>();
+        theStatusManager = FindObjectOfType<StatusManager>();
         theCam = FindObjectOfType<CameraController>();
+        myRigid = GetComponentInChildren<Rigidbody>();
+        orgPos = transform.position;
+
+        canMove = true;
+        isFalling = false;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        FallingCheck();
+        
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (canMove && isCanPressKey)
+            if (canMove && isCanPressKey && !isFalling)
             {
+                orgPos = destPos;
                 Calc();
                 if (theTimingManager.CheckTiming())
                 {
@@ -87,5 +103,39 @@ public class PlayerController : MonoBehaviour
         }
 
         realSlime.rotation = destRot;
+    }
+
+    void FallingCheck()
+    {
+        if (!isFalling && canMove)
+        {
+            if (!Physics.Raycast(transform.position + tempY, Vector3.down, 1.1f))
+            {
+                Falling();
+            }
+        }
+    }
+
+    void Falling()
+    {
+        isFalling = true;
+        myRigid.useGravity = true;
+        myRigid.isKinematic = false;
+    }
+
+    public void ResetFalling()
+    {
+        theStatusManager.DecreaseHp(25);
+
+        if (!theStatusManager.IsDead()) // 죽지 않았을 경우에만 실행.
+        {
+            isFalling = false;
+            myRigid.useGravity = false;
+            myRigid.isKinematic = true;
+
+            transform.position = orgPos;
+            destPos = orgPos;
+            realSlime.localPosition = new Vector3(0, 0, 0);
+        }
     }
 }

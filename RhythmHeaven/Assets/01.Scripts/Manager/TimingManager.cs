@@ -16,6 +16,7 @@ public class TimingManager : MonoBehaviour
     EffectManager theEffectManager;
     ScoreManager theScoreManager;
     StageManager theStageManager;
+    StatusManager theStatusManager;
     PlayerController thePlayer;
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class TimingManager : MonoBehaviour
         theEffectManager = FindObjectOfType<EffectManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();
         theStageManager = FindObjectOfType<StageManager>();
+        theStatusManager = FindObjectOfType<StatusManager>();
         thePlayer = FindObjectOfType<PlayerController>();
 
         timingBoxs = new Vector2[timingRect.Length];
@@ -52,6 +54,7 @@ public class TimingManager : MonoBehaviour
                     if (j < timingBoxs.Length - 1) // bad판정 제외를 위한 if문.
                     {
                         theEffectManager.NoteHitEffect();
+                        theStatusManager.IncreaseHp(2);
                     }
                     theEffectManager.JudgementEffect(j);
                     

@@ -22,7 +22,7 @@ public class GoalPlate : Plate
         {
             theAudio.Play();
             PlayerController.isCanPressKey = false;
-            theNoteManager.RemoveNote(); // 노트 전부 없애주기.
+            //theNoteManager.RemoveNote(); // 노트 전부 없애주기.
             theResult.ShowResult();
         }
     }

@@ -59,6 +59,7 @@ public class StageManager : MonoBehaviour
 
     IEnumerator RemovePlateCo(int _num)
     {
+        yield return new WaitForSeconds(0.2f);
 
         Vector3 t_destPos = new Vector3(stagePlates[_num].position.x,
                                         stagePlates[_num].position.y + offSetY,

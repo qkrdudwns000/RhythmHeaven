@@ -14,6 +14,7 @@ public class Result : MonoBehaviour
 
     ScoreManager theScore;
     TimingManager theTimingManager;
+    NoteManager theNoteManager;
 
     const int SCORE = 1, COMBO = 2;
 
@@ -21,11 +22,13 @@ public class Result : MonoBehaviour
     {
         theScore = FindObjectOfType<ScoreManager>();
         theTimingManager = FindObjectOfType<TimingManager>();
-        
+        theNoteManager = FindObjectOfType<NoteManager>();
     }
 
     public void ShowResult()
     {
+        theNoteManager.RemoveNote(); // 노트 전부 없애주기.
+
         go_Panel.SetActive(true);
 
         for(int i = 0; i < txtCount.Length; i++)
