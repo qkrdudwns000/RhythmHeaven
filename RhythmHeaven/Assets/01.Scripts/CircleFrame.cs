@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class CircleFrame : MonoBehaviour
 {
-    AudioSource myAudio;
     bool musicStart = false;
 
-    private void Start()
-    {
-        myAudio = GetComponent<AudioSource>();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,7 +13,7 @@ public class CircleFrame : MonoBehaviour
         {
             if (collision.CompareTag("Note"))
             {
-                myAudio.Play();
+                AudioManager.inst.PlayBGM("BGM0");
                 musicStart = true;
             }
         }

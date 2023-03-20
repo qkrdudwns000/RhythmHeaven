@@ -18,10 +18,12 @@ public class TimingManager : MonoBehaviour
     StageManager theStageManager;
     StatusManager theStatusManager;
     PlayerController thePlayer;
+    AudioManager theAudioManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        theAudioManager = AudioManager.inst;
         theEffectManager = FindObjectOfType<EffectManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();
         theStageManager = FindObjectOfType<StageManager>();
@@ -67,6 +69,7 @@ public class TimingManager : MonoBehaviour
                         // 판정 기록
                         judgementRecord[j]++;
                     }
+                    theAudioManager.PlaySFX("Clap");
 
                     return true;
                 }

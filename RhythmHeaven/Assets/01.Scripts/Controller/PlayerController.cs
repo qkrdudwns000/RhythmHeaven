@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     TimingManager theTimingManager;
     CameraController theCam;
     StatusManager theStatusManager;
+    //AudioManager theAudioManager = AudioManager.inst;
     Animator myAnim;
     Rigidbody myRigid;
 
@@ -126,6 +127,7 @@ public class PlayerController : MonoBehaviour
     public void ResetFalling()
     {
         theStatusManager.DecreaseHp(25);
+        AudioManager.inst.PlaySFX("Falling");
 
         if (!theStatusManager.IsDead()) // 죽지 않았을 경우에만 실행.
         {
