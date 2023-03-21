@@ -17,6 +17,7 @@ public class Result : MonoBehaviour
     NoteManager theNoteManager;
 
     const int SCORE = 1, COMBO = 2;
+    bool isResult = false;
 
     void Start()
     {
@@ -24,9 +25,22 @@ public class Result : MonoBehaviour
         theTimingManager = FindObjectOfType<TimingManager>();
         theNoteManager = FindObjectOfType<NoteManager>();
     }
+    private void Update()
+    {
+        if(isResult)
+        {
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                BtnMainMenu();
+            }
+        }
+    }
 
     public void ShowResult()
     {
+        AudioManager.inst.StopBGM();
+        isResult = true;
+
         theNoteManager.RemoveNote(); // 노트 전부 없애주기.
 
         go_Panel.SetActive(true);
@@ -54,4 +68,13 @@ public class Result : MonoBehaviour
         txtMaxCombo.text = string.Format("{0:#,##0}", maxCombo);
         txtExp.text = string.Format("{0:#,##0}", experience);
     }
+
+    public void BtnMainMenu()
+    {
+        go_Panel.SetActive(false);
+        isResult = false;
+        GameManager.inst.MainMenu();
+        theScore.ResetCombo();
+    }
+
 }

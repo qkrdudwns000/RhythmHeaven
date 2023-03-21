@@ -46,17 +46,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FallingCheck();
-        
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        if(GameManager.inst.isStartGame)
         {
-            if (canMove && isCanPressKey && !isFalling)
+            FallingCheck();
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
-                orgPos = destPos;
-                Calc();
-                if (theTimingManager.CheckTiming())
+                if (canMove && isCanPressKey && !isFalling)
                 {
-                    StartAction();
+                    orgPos = destPos;
+                    Calc();
+                    if (theTimingManager.CheckTiming())
+                    {
+                        StartAction();
+                    }
                 }
             }
         }
