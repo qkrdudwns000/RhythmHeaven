@@ -42,6 +42,7 @@ public class Result : MonoBehaviour
         isResult = true;
 
         theNoteManager.RemoveNote(); // 노트 전부 없애주기.
+        FindObjectOfType<CircleFrame>().ResetMusic();
 
         go_Panel.SetActive(true);
 

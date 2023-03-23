@@ -67,5 +67,7 @@ public class NoteManager : MonoBehaviour
             theTimingManager.circleNoteList[i].SetActive(false);
             ObjectPool.inst.noteQueue.Enqueue(theTimingManager.circleNoteList[i]);
         }
+
+        theTimingManager.circleNoteList.Clear();
     }
 }

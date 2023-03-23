@@ -27,6 +27,11 @@ public class ScoreManager : MonoBehaviour
     {
         HideCombo();
         myAnim = GetComponent<Animator>();
+        Initialized();
+    }
+
+    public void Initialized()
+    {
         currentScore = 0;
         txtScore.text = "0";
     }

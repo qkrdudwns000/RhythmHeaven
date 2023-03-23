@@ -24,6 +24,13 @@ public class StatusManager : MonoBehaviour
         theResult = FindObjectOfType<Result>();
         SettingHPImage();
     }
+    public void Initialized()
+    {
+        currentHp = maxHp;
+        isDead = false;
+        SettingHPImage();
+    }
+
     public void IncreaseHp(int _num)
     {
         currentHp += _num;

@@ -38,6 +38,13 @@ public class TimingManager : MonoBehaviour
                               Center.localPosition.x + timingRect[i].rect.width / 2); // 판정범위 최대 최소 범위 지정.
         }
     }
+    public void Initialized()
+    {
+        for (int i = 0; i < judgementRecord.Length; i++)
+        {
+            judgementRecord[i] = 0;
+        }
+    }
 
     public bool CheckTiming()
     {
@@ -108,4 +115,5 @@ public class TimingManager : MonoBehaviour
     {
         judgementRecord[4]++;
     }
+    
 }

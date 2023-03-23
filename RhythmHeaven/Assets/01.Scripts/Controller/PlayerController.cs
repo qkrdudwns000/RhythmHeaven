@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     TimingManager theTimingManager;
     CameraController theCam;
     StatusManager theStatusManager;
-    //AudioManager theAudioManager = AudioManager.inst;
     Animator myAnim;
     Rigidbody myRigid;
 
@@ -40,6 +39,19 @@ public class PlayerController : MonoBehaviour
 
         canMove = true;
         isFalling = false;
+    }
+
+    public void Initialized()
+    {
+        //StopAllCoroutines();
+        transform.position = Vector3.zero;
+        destPos = Vector3.zero;
+        realSlime.localPosition = Vector3.zero;
+        canMove = true;
+        isCanPressKey = true;
+        isFalling = false;
+        myRigid.useGravity = false;
+        myRigid.isKinematic = true;
     }
 
 
@@ -58,6 +70,7 @@ public class PlayerController : MonoBehaviour
                     Calc();
                     if (theTimingManager.CheckTiming())
                     {
+                        canMove = false;
                         StartAction();
                     }
                 }
@@ -88,14 +101,14 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator MoveCo()
     {
-        while(Vector3.SqrMagnitude(transform.position - destPos) != 0.001f)
+        while(Vector3.SqrMagnitude(transform.position - destPos) >= 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, destPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-
-        transform.position = destPos;
+        Debug.Log("Hi");
         canMove = true;
+        transform.position = destPos;
     }
 
     IEnumerator RotCo()
@@ -105,7 +118,7 @@ public class PlayerController : MonoBehaviour
             realSlime.rotation = Quaternion.RotateTowards(realSlime.rotation, destRot, SpinSpeed * Time.deltaTime);
             yield return null;
         }
-
+        Debug.Log("Hello");
         realSlime.rotation = destRot;
     }
 
