@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 
 [System.Serializable]
@@ -18,6 +19,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] Sound[] sfx = null;
     [SerializeField] Sound[] bgm = null;
 
+    [SerializeField] Slider bgmSlider = null;
+    [SerializeField] Slider sfxSlider = null;
+
     [SerializeField] AudioSource bgmPlayer = null;
     [SerializeField] AudioSource[] sfxPlayer = null;
 
@@ -31,6 +35,51 @@ public class AudioManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+    private void Start()
+    {
+        bgmSlider.value = 1.0f;
+        sfxSlider.value = 1.0f;
+    }
+    private void Update()
+    {
+        if(GameManager.inst.isOption)
+        {
+            // BGM slider
+            if(Input.GetKeyDown(KeyCode.F1))
+            {
+                bgmSlider.value -= 0.1f;
+                if(bgmSlider.value < 0.0001f)
+                {
+                    bgmSlider.value = 0.0001f;
+                }
+            }else if(Input.GetKeyDown(KeyCode.F2))
+            {
+                bgmSlider.value += 0.1f;
+                if (bgmSlider.value > 1.0f)
+                {
+                    bgmSlider.value = 1.0f;
+                }
+            }
+            // SFX slider
+            if(Input.GetKeyDown(KeyCode.F3))
+            {
+                sfxSlider.value -= 0.1f;
+                if (sfxSlider.value < 0.0001f)
+                {
+                    sfxSlider.value = 0.0001f;
+                }
+            }
+            else if(Input.GetKeyDown(KeyCode.F4))
+            {
+                sfxSlider.value += 0.1f;
+                if (sfxSlider.value > 1.0f)
+                {
+                    sfxSlider.value = 1.0f;
+                }
+            }
+        }
+    }
+
 
     public void PlayBGM(string _bgmName)
     {
@@ -74,10 +123,10 @@ public class AudioManager : MonoBehaviour
     // º¼·ý Á¶Àý
     public void BGMSoundVolume(float v)
     {
-        mixer.SetFloat("BGMSound", Mathf.Log10(v) * 20);
+        mixer.SetFloat("BgmSound", Mathf.Log10(v) * 20);
     }
     public void SFXSoundVolume(float v)
     {
-        mixer.SetFloat("SFXSound", Mathf.Log10(v) * 20);
+        mixer.SetFloat("SfxSound", Mathf.Log10(v) * 20);
     }
 }

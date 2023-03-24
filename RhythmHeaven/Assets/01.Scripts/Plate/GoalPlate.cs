@@ -5,7 +5,6 @@ using UnityEngine;
 public class GoalPlate : Plate
 {
     AudioSource theAudio;
-    NoteManager theNoteManager;
     Result theResult;
 
     // Start is called before the first frame update
@@ -13,7 +12,6 @@ public class GoalPlate : Plate
     {
         theResult = FindObjectOfType<Result>();
         theAudio = GetComponent<AudioSource>();
-        theNoteManager = FindObjectOfType<NoteManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,7 +20,6 @@ public class GoalPlate : Plate
         {
             theAudio.Play();
             PlayerController.isCanPressKey = false;
-            //theNoteManager.RemoveNote(); // 노트 전부 없애주기.
             theResult.ShowResult();
         }
     }

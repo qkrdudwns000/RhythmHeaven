@@ -18,7 +18,7 @@ public class ScrollMenu : MonoBehaviour
     Color smallColor = new Color(1, 1, 1, 0.6f);
 
     [SerializeField] Scrollbar scrollBar;
-    [SerializeField] TMPro.TMP_Text[] songNames = null;
+    public TMPro.TMP_Text[] songNames = null;
     
     private void Start()
     {
@@ -29,22 +29,7 @@ public class ScrollMenu : MonoBehaviour
         songNames = transform.GetComponentsInChildren<TMPro.TMP_Text>();
         ChangeScaleAndColor();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            StartCoroutine(ScrollMoveDown());
-            ChangeScaleAndColor();
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            StartCoroutine(ScrollMoveUp());
-            ChangeScaleAndColor();
-        } 
-    }
-    IEnumerator ScrollMoveDown()
+    public IEnumerator ScrollMoveDown()
     {
         if (scrollIndex + 1 >= scrollPos.Length)
             yield break;
@@ -63,7 +48,7 @@ public class ScrollMenu : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator ScrollMoveUp()
+    public IEnumerator ScrollMoveUp()
     {
         if (scrollIndex - 1 < 0)
             yield break;
@@ -82,7 +67,7 @@ public class ScrollMenu : MonoBehaviour
             yield return null;
         }
     }
-    void ChangeScaleAndColor()
+    public void ChangeScaleAndColor()
     {
         transform.GetChild(scrollIndex).localScale = orgScale;
         songNames[scrollIndex].color = orgColor;
@@ -105,5 +90,9 @@ public class ScrollMenu : MonoBehaviour
         {
             scrollPos[i] = 1 - (scrollDist * i);
         }
+    }
+    public int CurrentSongNum()
+    {
+        return scrollIndex;
     }
 }

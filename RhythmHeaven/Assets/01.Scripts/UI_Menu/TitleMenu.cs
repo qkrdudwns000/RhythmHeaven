@@ -5,6 +5,7 @@ using UnityEngine;
 public class TitleMenu : MonoBehaviour
 {
     [SerializeField] GameObject go_StageUI = null;
+    [SerializeField] GameObject go_OptionUI = null;
 
     public bool isPressAnyKey = false;
     public int curMenuNum = 0;
@@ -22,7 +23,11 @@ public class TitleMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isPressAnyKey)
+        if (Input.GetKeyDown(KeyCode.Return) && GameManager.inst.isOption)
+        {
+            StartCoroutine(CloseOptionMenu());
+        }
+        if (isPressAnyKey && !GameManager.inst.isOption)
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -39,12 +44,14 @@ public class TitleMenu : MonoBehaviour
                 MenuAnim();
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && !GameManager.inst.isOption)
             {
                 ResetAnim();
                 MenuAction();
             }
         }
+        
+
     }
     public void MenuAnim()
     {
@@ -72,7 +79,7 @@ public class TitleMenu : MonoBehaviour
                 break;
             // Option
             case 1:
-                
+                BtnOption();
                 break;
             // Quit
             case 2:
@@ -86,6 +93,20 @@ public class TitleMenu : MonoBehaviour
         go_StageUI.SetActive(true);
         curMenuNum = 0;
         this.gameObject.SetActive(false);
+    }
+    public void BtnOption()
+    {
+        go_OptionUI.SetActive(true);
+        GameManager.inst.isOption = true;
+    }
+
+    // enter 키 중복 막기위해 코루틴사용.
+    public IEnumerator CloseOptionMenu()
+    {
+        yield return null;
+
+        go_OptionUI.SetActive(false);
+        GameManager.inst.isOption = false;
     }
     
     void ResetAnim()

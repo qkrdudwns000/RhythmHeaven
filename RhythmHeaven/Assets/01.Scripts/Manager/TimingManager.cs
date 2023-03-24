@@ -96,7 +96,7 @@ public class TimingManager : MonoBehaviour
         {
             if (hitInfo.transform.CompareTag("GrassPlate"))
             {
-                GrassPlate plate = hitInfo.transform.GetComponent<GrassPlate>();
+                Plate plate = hitInfo.transform.GetComponent<Plate>();
                 if (plate.flag)
                 {
                     plate.flag = false;

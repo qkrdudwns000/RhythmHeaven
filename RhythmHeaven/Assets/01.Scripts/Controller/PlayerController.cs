@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, destPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("Hi");
         canMove = true;
         transform.position = destPos;
     }
@@ -118,7 +117,6 @@ public class PlayerController : MonoBehaviour
             realSlime.rotation = Quaternion.RotateTowards(realSlime.rotation, destRot, SpinSpeed * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("Hello");
         realSlime.rotation = destRot;
     }
 

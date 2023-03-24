@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField] GameObject stage = null;
+    [SerializeField] GameObject[] stageArr = null;
     GameObject currentStage;
     Transform[] stagePlates;
 
@@ -22,12 +22,12 @@ public class StageManager : MonoBehaviour
         if (currentStage != null)
             Destroy(currentStage);
     }
-    public void SettingStage()
+    public void SettingStage(int _songNum)
     {
         stepCount = 3;
         removeCount = 0;
 
-        currentStage = Instantiate(stage, Vector3.zero, Quaternion.identity);
+        currentStage = Instantiate(stageArr[_songNum], Vector3.zero, Quaternion.identity);
         stagePlates = currentStage.GetComponent<Stage>().plates;
         totalPlateCount = stagePlates.Length;
 
@@ -53,6 +53,7 @@ public class StageManager : MonoBehaviour
 
     IEnumerator MovePlateCo(int _num)
     {
+        Debug.Log("move" + _num);
         stagePlates[_num].gameObject.SetActive(true);
         Vector3 t_destPos = new Vector3(stagePlates[_num].position.x, 
                                         stagePlates[_num].position.y + offSetY,
@@ -69,13 +70,14 @@ public class StageManager : MonoBehaviour
 
     IEnumerator RemovePlateCo(int _num)
     {
+        Debug.Log("Remove" + _num);
         yield return new WaitForSeconds(0.2f);
 
         Vector3 t_destPos = new Vector3(stagePlates[_num].position.x,
                                         stagePlates[_num].position.y + offSetY,
                                         stagePlates[_num].position.z);
 
-        while (Vector3.SqrMagnitude(stagePlates[_num].position - t_destPos) >= 0.001f)
+        while (Vector3.SqrMagnitude(stagePlates[_num].position - t_destPos) >= 0.1f)
         {
             stagePlates[_num].position = Vector3.Lerp(stagePlates[_num].position, t_destPos, Time.deltaTime * plateRemoveSpeed);
             yield return null;

@@ -38,10 +38,12 @@ public class Result : MonoBehaviour
 
     public void ShowResult()
     {
+        // 노트 전부 없애주기.
+        theNoteManager.RemoveNote();
+
         AudioManager.inst.StopBGM();
         isResult = true;
-
-        theNoteManager.RemoveNote(); // 노트 전부 없애주기.
+         
         FindObjectOfType<CircleFrame>().ResetMusic();
 
         go_Panel.SetActive(true);
