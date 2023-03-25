@@ -25,6 +25,7 @@ public class TitleMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && GameManager.inst.isOption)
         {
+            AudioManager.inst.PlaySFX("Cancel");
             StartCoroutine(CloseOptionMenu());
         }
         if (isPressAnyKey && !GameManager.inst.isOption)
@@ -55,6 +56,7 @@ public class TitleMenu : MonoBehaviour
     }
     public void MenuAnim()
     {
+        AudioManager.inst.PlaySFX("TitleFlip");
         switch (curMenuNum)
         {
             case 0:
@@ -71,10 +73,12 @@ public class TitleMenu : MonoBehaviour
 
     public void MenuAction()
     {
-        switch(curMenuNum)
+        AudioManager.inst.PlaySFX("Confirm");
+        switch (curMenuNum)
         {
             // Play
             case 0:
+                GameManager.inst.SplashScene();
                 BtnPlay();
                 break;
             // Option

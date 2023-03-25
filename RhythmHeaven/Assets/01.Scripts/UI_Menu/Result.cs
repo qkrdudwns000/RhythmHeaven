@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Result : MonoBehaviour
 {
     [SerializeField] GameObject go_Panel = null;
+    [SerializeField] CanvasGroup inGameUI = null;
 
     [SerializeField] TMPro.TMP_Text[] txtCount = null;
     [SerializeField] TMPro.TMP_Text txtMaxCombo = null;
@@ -32,6 +33,10 @@ public class Result : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Return))
             {
                 BtnMainMenu();
+            }
+            if(Input.GetKeyDown(KeyCode.F5))
+            {
+                BtnRetry();
             }
         }
     }
@@ -74,10 +79,28 @@ public class Result : MonoBehaviour
 
     public void BtnMainMenu()
     {
+        GameManager.inst.SplashScene();
         go_Panel.SetActive(false);
         isResult = false;
         GameManager.inst.MainMenu();
         theScore.ResetCombo();
+    }
+    public void BtnRetry()
+    {
+        GameManager.inst.GameStart();
+        go_Panel.SetActive(false);
+        isResult = false;
+        theScore.ResetCombo();
+    }
+
+    public void HideUI()
+    {
+        inGameUI.alpha = 0;
+    }
+    public void ShowUI()
+    {
+        inGameUI.alpha = 1;
+        ShowResult();
     }
 
 }

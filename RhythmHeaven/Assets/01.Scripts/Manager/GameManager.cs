@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager inst;
     [SerializeField] GameObject go_StageTitle = null;
+
+    int retrySong = 0;
+    int retryBpm = 0;
 
     public bool isStartGame = false;
     public bool isOption = false;
@@ -19,6 +23,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] NoteManager theNote;
     [SerializeField] CircleFrame theMusic;
 
+    [SerializeField] Transform cameraTR;
+
+    [SerializeField] Animator splashAnim = null;
+    string splash = "Splash";
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -28,11 +37,37 @@ public class GameManager : MonoBehaviour
 
     public void GameStart(int _currentSong, int _bpm)
     {
+        GameManager.inst.SplashScene();
+        retrySong = _currentSong;
+        retryBpm = _bpm;
         // 게임리셋.
+        cameraTR.localPosition = Vector3.zero;
+        cameraTR.localEulerAngles = Vector3.zero;
         theMusic.bgmName = "BGM" + _currentSong;
         theNote.bpm = _bpm;
         theStage.RemoveStage();
         theStage.SettingStage(_currentSong);
+        theScore.Initialized();
+        theScore.ResetCombo();
+        theTiming.Initialized();
+        theStatus.Initialized();
+        thePlayer.Initialized();
+
+        AudioManager.inst.StopBGM();
+
+        isStartGame = true;
+    }
+    // Retry용 오버로딩함수
+    public void GameStart()
+    {
+        GameManager.inst.SplashScene();
+        // 게임리셋.
+        cameraTR.localPosition = Vector3.zero;
+        cameraTR.localEulerAngles = Vector3.zero;
+        theMusic.bgmName = "BGM" + retrySong;
+        theNote.bpm = retryBpm;
+        theStage.RemoveStage();
+        theStage.SettingStage(retrySong);
         theScore.Initialized();
         theScore.ResetCombo();
         theTiming.Initialized();
@@ -49,5 +84,10 @@ public class GameManager : MonoBehaviour
         isStartGame = false;
         go_StageTitle.SetActive(true);
         theStageMenu.SettingSong();
+    }
+
+    public void SplashScene()
+    {
+        splashAnim.SetTrigger(splash);
     }
 }

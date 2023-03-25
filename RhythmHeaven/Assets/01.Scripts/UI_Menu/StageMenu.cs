@@ -20,12 +20,15 @@ public class StageMenu : MonoBehaviour
     [SerializeField] GameObject go_TitleMenu = null;
     [SerializeField] TitleMenu theTitle;
     ScrollMenu theScroll;
+    Animator myAnim;
 
     int currentSong = 0;
     int prevSong = 0;
+    string enter = "Enter";
 
     private void Start()
     {
+        myAnim = GetComponent<Animator>();
         theScroll = FindObjectOfType<ScrollMenu>();
         for(int i = 0; i < songList.Length; i++)
         {
@@ -65,6 +68,7 @@ public class StageMenu : MonoBehaviour
     }
     public void SettingSong()
     {
+        AudioManager.inst.PlaySFX("Flip");
         imgSong.sprite = songList[currentSong].sprite;
 
         AudioManager.inst.PlayBGM("BGM" + currentSong);
@@ -72,16 +76,24 @@ public class StageMenu : MonoBehaviour
 
     public void BtnPlay()
     {
-        int _bpm = songList[currentSong].bpm;
-
-        GameManager.inst.GameStart(currentSong, _bpm);
-        this.gameObject.SetActive(false);
+        AudioManager.inst.StopBGM();
+        AudioManager.inst.PlaySFX("GameStart");
+        myAnim.SetTrigger(enter);
     }
     public void BtnBack()
     {
+        GameManager.inst.SplashScene();
         go_TitleMenu.SetActive(true);
         theTitle.isPressAnyKey = true;
         theTitle.MenuAnim();
+        this.gameObject.SetActive(false);
+    }
+
+    public void PlaySong()
+    {
+        int _bpm = songList[currentSong].bpm;
+
+        GameManager.inst.GameStart(currentSong, _bpm);
         this.gameObject.SetActive(false);
     }
 }

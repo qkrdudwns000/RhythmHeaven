@@ -20,8 +20,19 @@ public class GoalPlate : Plate
         {
             theAudio.Play();
             PlayerController.isCanPressKey = false;
-            theResult.ShowResult();
+            theResult.HideUI();
+            StartCoroutine(ShowTimeline());
         }
+    }
+    
+    IEnumerator ShowTimeline()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        TimelineController.inst.Play();
+
+        yield return null;
+        theResult.ShowResult();
     }
 
 }

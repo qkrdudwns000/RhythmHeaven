@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Transform fakeSlime = null;
     [SerializeField] Transform realSlime = null;
+    [SerializeField] GameObject go_Option = null;
 
     TimingManager theTimingManager;
     CameraController theCam;
@@ -74,6 +75,10 @@ public class PlayerController : MonoBehaviour
                         StartAction();
                     }
                 }
+            }
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                go_Option.SetActive(true);
             }
         }
     }
