@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] StageMenu theStageMenu;
     [SerializeField] NoteManager theNote;
     [SerializeField] CircleFrame theMusic;
+    [SerializeField] Result theResult;
 
     [SerializeField] Transform cameraTR;
 
@@ -44,7 +45,9 @@ public class GameManager : MonoBehaviour
         cameraTR.localPosition = Vector3.zero;
         cameraTR.localEulerAngles = Vector3.zero;
         theMusic.bgmName = "BGM" + _currentSong;
+        theMusic.ResetMusic();
         theNote.bpm = _bpm;
+        theNote.RemoveNote();
         theStage.RemoveStage();
         theStage.SettingStage(_currentSong);
         theScore.Initialized();
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
         theTiming.Initialized();
         theStatus.Initialized();
         thePlayer.Initialized();
+        theResult.SetCurrentSont(_currentSong);
 
         AudioManager.inst.StopBGM();
 
@@ -65,7 +69,9 @@ public class GameManager : MonoBehaviour
         cameraTR.localPosition = Vector3.zero;
         cameraTR.localEulerAngles = Vector3.zero;
         theMusic.bgmName = "BGM" + retrySong;
+        theMusic.ResetMusic();
         theNote.bpm = retryBpm;
+        theNote.RemoveNote();
         theStage.RemoveStage();
         theStage.SettingStage(retrySong);
         theScore.Initialized();
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
         theTiming.Initialized();
         theStatus.Initialized();
         thePlayer.Initialized();
+        theResult.SetCurrentSont(retrySong);
 
         AudioManager.inst.StopBGM();
 
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
+        GameManager.inst.SplashScene();
         isStartGame = false;
         go_StageTitle.SetActive(true);
         theStageMenu.SettingSong();

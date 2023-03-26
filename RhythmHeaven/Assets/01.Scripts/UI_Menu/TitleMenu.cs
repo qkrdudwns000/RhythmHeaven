@@ -19,6 +19,10 @@ public class TitleMenu : MonoBehaviour
     {
         myAnim = GetComponent<Animator>();
     }
+    private void OnEnable()
+    {
+        AudioManager.inst.PlayBGM("Title");
+    }
 
     // Update is called once per frame
     void Update()

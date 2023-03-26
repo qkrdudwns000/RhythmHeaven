@@ -16,11 +16,15 @@ public class StageMenu : MonoBehaviour
     [SerializeField] Song[] songList = null;
 
     [SerializeField] Image imgSong = null;
+    [SerializeField] Image decoImg = null;
+
+    [SerializeField] TMPro.TMP_Text txt_SongScore = null;
 
     [SerializeField] GameObject go_TitleMenu = null;
     [SerializeField] TitleMenu theTitle;
     ScrollMenu theScroll;
-    Animator myAnim;
+    DataBaseManager theDataBase;
+    Animator myAnim = null;
 
     int currentSong = 0;
     int prevSong = 0;
@@ -30,11 +34,16 @@ public class StageMenu : MonoBehaviour
     {
         myAnim = GetComponent<Animator>();
         theScroll = FindObjectOfType<ScrollMenu>();
+        theDataBase = FindObjectOfType<DataBaseManager>();
         for(int i = 0; i < songList.Length; i++)
         {
             theScroll.songNames[i].text = songList[i].name;
         }
         SettingSong();
+    }
+    private void OnEnable()
+    {
+        AudioManager.inst.PlayBGM("BGM" + currentSong);
     }
     // Update is called once per frame
     void Update()
@@ -69,6 +78,7 @@ public class StageMenu : MonoBehaviour
     public void SettingSong()
     {
         AudioManager.inst.PlaySFX("Flip");
+        txt_SongScore.text = string.Format("{0:#,##0}", theDataBase.scores[currentSong]);
         imgSong.sprite = songList[currentSong].sprite;
 
         AudioManager.inst.PlayBGM("BGM" + currentSong);

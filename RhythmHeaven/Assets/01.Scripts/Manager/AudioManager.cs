@@ -93,6 +93,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PauseBGM()
+    {
+        bgmPlayer.Pause();
+    }
+    public void ReplayBGM()
+    {
+        bgmPlayer.Play();
+    }
+
     public void StopBGM()
     {
         bgmPlayer.Stop();

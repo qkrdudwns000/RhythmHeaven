@@ -8,6 +8,8 @@ public class Result : MonoBehaviour
     [SerializeField] GameObject go_Panel = null;
     [SerializeField] CanvasGroup inGameUI = null;
 
+    int currentSong = 0; public void SetCurrentSont(int _songNum) { currentSong = _songNum; }
+
     [SerializeField] TMPro.TMP_Text[] txtCount = null;
     [SerializeField] TMPro.TMP_Text txtMaxCombo = null;
     [SerializeField] TMPro.TMP_Text txtScore = null;
@@ -16,6 +18,7 @@ public class Result : MonoBehaviour
     ScoreManager theScore;
     TimingManager theTimingManager;
     NoteManager theNoteManager;
+    DataBaseManager theDataBaseManager;
 
     const int SCORE = 1, COMBO = 2;
     bool isResult = false;
@@ -25,6 +28,7 @@ public class Result : MonoBehaviour
         theScore = FindObjectOfType<ScoreManager>();
         theTimingManager = FindObjectOfType<TimingManager>();
         theNoteManager = FindObjectOfType<NoteManager>();
+        theDataBaseManager = FindObjectOfType<DataBaseManager>();
     }
     private void Update()
     {
@@ -48,12 +52,12 @@ public class Result : MonoBehaviour
 
         AudioManager.inst.StopBGM();
         isResult = true;
-         
+
         FindObjectOfType<CircleFrame>().ResetMusic();
 
         go_Panel.SetActive(true);
 
-        for(int i = 0; i < txtCount.Length; i++)
+        for (int i = 0; i < txtCount.Length; i++)
         {
             txtCount[i].text = "0";
         }
@@ -75,22 +79,28 @@ public class Result : MonoBehaviour
         txtScore.text = string.Format("{0:#,##0}", currentScore);
         txtMaxCombo.text = string.Format("{0:#,##0}", maxCombo);
         txtExp.text = string.Format("{0:#,##0}", experience);
+
+        // 최고기록을 달성 했을 경우에만 스코어 저장.
+        if (currentScore > theDataBaseManager.scores[currentSong])
+        {
+            theDataBaseManager.scores[currentSong] = currentScore;
+            theDataBaseManager.SaveScore();
+        }
+            
     }
 
     public void BtnMainMenu()
     {
-        GameManager.inst.SplashScene();
         go_Panel.SetActive(false);
         isResult = false;
         GameManager.inst.MainMenu();
-        theScore.ResetCombo();
+
     }
     public void BtnRetry()
     {
         GameManager.inst.GameStart();
         go_Panel.SetActive(false);
         isResult = false;
-        theScore.ResetCombo();
     }
 
     public void HideUI()

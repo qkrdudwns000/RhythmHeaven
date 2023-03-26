@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ResultAtlasUI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: c069321eaa469e74cb179b538a38520c, type: 3}
+    - {fileID: 2800000, guid: 3506de482a576f640b17c0fb0368580a, type: 3}
+    - {fileID: 2800000, guid: bcc2ac4a6573df845b944052bbfca416, type: 3}
+    - {fileID: 2800000, guid: 2bd361cf1e57c134b99d36ced7ef3b81, type: 3}
+    - {fileID: 2800000, guid: a0dd69dfbaa10584d8eacc243e0c3417, type: 3}
+    - {fileID: 2800000, guid: 8e8ba1708c4857247a08c6b69b7d09fb, type: 3}
+    - {fileID: 2800000, guid: f9bf539e2a04a2b4d93120ae4e5e311c, type: 3}
+    - {fileID: 2800000, guid: 5abd4cba3fec652449fd91fef99b2a4c, type: 3}
+    - {fileID: 2800000, guid: 60c7ed47efcebbb49b21002c07ebffd3, type: 3}
+    - {fileID: 2800000, guid: a30547cfd1b4afa44818551d03a5eb29, type: 3}
+    - {fileID: 2800000, guid: 11c0c29fdb1ab4443b8b6b4ef804b267, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8e8ba1708c4857247a08c6b69b7d09fb, type: 3}
+  - {fileID: 21300000, guid: 60c7ed47efcebbb49b21002c07ebffd3, type: 3}
+  - {fileID: 21300000, guid: 3506de482a576f640b17c0fb0368580a, type: 3}
+  - {fileID: 21300000, guid: bcc2ac4a6573df845b944052bbfca416, type: 3}
+  - {fileID: 21300000, guid: 5abd4cba3fec652449fd91fef99b2a4c, type: 3}
+  - {fileID: 21300000, guid: c069321eaa469e74cb179b538a38520c, type: 3}
+  - {fileID: 21300000, guid: f9bf539e2a04a2b4d93120ae4e5e311c, type: 3}
+  - {fileID: 21300000, guid: 11c0c29fdb1ab4443b8b6b4ef804b267, type: 3}
+  - {fileID: 21300000, guid: 2bd361cf1e57c134b99d36ced7ef3b81, type: 3}
+  - {fileID: 21300000, guid: a30547cfd1b4afa44818551d03a5eb29, type: 3}
+  - {fileID: 21300000, guid: a0dd69dfbaa10584d8eacc243e0c3417, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - PerfectTxt
+  - ScoreTxT
+  - MaxSlimeTxT
+  - Slime1
+  - RPGBackGround
+  - ExpUp
+  - Result
+  - CoolTxt
+  - MissTxt
+  - BadTxt
+  - GoodTxt
+  m_RenderDataMap: {}
+  m_Tag: ResultAtlas
+  m_IsVariant: 0
