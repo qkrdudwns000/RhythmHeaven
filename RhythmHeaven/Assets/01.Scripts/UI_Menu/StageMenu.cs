@@ -43,6 +43,7 @@ public class StageMenu : MonoBehaviour
     }
     private void OnEnable()
     {
+        GameManager.inst.ShowLevelUI();
         AudioManager.inst.PlayBGM("BGM" + currentSong);
     }
     // Update is called once per frame
@@ -78,7 +79,7 @@ public class StageMenu : MonoBehaviour
     public void SettingSong()
     {
         AudioManager.inst.PlaySFX("Flip");
-        txt_SongScore.text = string.Format("{0:#,##0}", theDataBase.scores[currentSong]);
+        txt_SongScore.text = string.Format("{0:#,##0}", DataBaseManager.inst.saveData._scores[currentSong]);
         imgSong.sprite = songList[currentSong].sprite;
 
         AudioManager.inst.PlayBGM("BGM" + currentSong);

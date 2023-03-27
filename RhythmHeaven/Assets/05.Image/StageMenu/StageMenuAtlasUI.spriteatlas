@@ -57,5 +57,5 @@ SpriteAtlas:
   - StageMenuBack
   - straightDeco2
   m_RenderDataMap: {}
-  m_Tag: StageMenuAtlas
+  m_Tag: StageMenuAtlasUI
   m_IsVariant: 0

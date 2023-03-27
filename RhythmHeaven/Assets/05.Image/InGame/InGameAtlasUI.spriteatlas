@@ -63,5 +63,5 @@ SpriteAtlas:
   - menuicon
   - Deco
   m_RenderDataMap: {}
-  m_Tag: InGameAtlas
+  m_Tag: InGameAtlasUI
   m_IsVariant: 0

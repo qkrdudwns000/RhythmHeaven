@@ -18,7 +18,6 @@ public class Result : MonoBehaviour
     ScoreManager theScore;
     TimingManager theTimingManager;
     NoteManager theNoteManager;
-    DataBaseManager theDataBaseManager;
 
     const int SCORE = 1, COMBO = 2;
     bool isResult = false;
@@ -28,7 +27,6 @@ public class Result : MonoBehaviour
         theScore = FindObjectOfType<ScoreManager>();
         theTimingManager = FindObjectOfType<TimingManager>();
         theNoteManager = FindObjectOfType<NoteManager>();
-        theDataBaseManager = FindObjectOfType<DataBaseManager>();
     }
     private void Update()
     {
@@ -52,7 +50,7 @@ public class Result : MonoBehaviour
 
         AudioManager.inst.StopBGM();
         isResult = true;
-
+        
         FindObjectOfType<CircleFrame>().ResetMusic();
 
         go_Panel.SetActive(true);
@@ -70,6 +68,7 @@ public class Result : MonoBehaviour
         int currentScore = theScore.GetScoreAndCombo(SCORE);
         int maxCombo = theScore.GetScoreAndCombo(COMBO);
         int experience = currentScore / 50;
+        GameManager.inst.AddExperience(experience);
 
         for (int i = 0; i < txtCount.Length; i++)
         {
@@ -81,12 +80,14 @@ public class Result : MonoBehaviour
         txtExp.text = string.Format("{0:#,##0}", experience);
 
         // 최고기록을 달성 했을 경우에만 스코어 저장.
-        if (currentScore > theDataBaseManager.scores[currentSong])
+        if (currentScore > DataBaseManager.inst.saveData._scores[currentSong])
         {
-            theDataBaseManager.scores[currentSong] = currentScore;
-            theDataBaseManager.SaveScore();
+            DataBaseManager.inst.saveData._scores[currentSong] = currentScore;  
         }
-            
+        DataBaseManager.inst.saveData._Level = GameManager.inst.playerInfo._lv;
+        DataBaseManager.inst.saveData._experience = GameManager.inst.playerInfo._experience;
+        DataBaseManager.inst.SaveDataJson();
+
     }
 
     public void BtnMainMenu()
@@ -110,7 +111,6 @@ public class Result : MonoBehaviour
     public void ShowUI()
     {
         inGameUI.alpha = 1;
-        ShowResult();
     }
 
 }

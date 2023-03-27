@@ -72,5 +72,5 @@ SpriteAtlas:
   - BadTxt
   - GoodTxt
   m_RenderDataMap: {}
-  m_Tag: ResultAtlas
+  m_Tag: ResultAtlasUI
   m_IsVariant: 0

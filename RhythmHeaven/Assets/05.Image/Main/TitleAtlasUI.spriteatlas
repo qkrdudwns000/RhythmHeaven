@@ -63,5 +63,5 @@ SpriteAtlas:
   - spotLight
   - SlimeTxt2
   m_RenderDataMap: {}
-  m_Tag: TitleAtlas
+  m_Tag: TitleAtlasUI
   m_IsVariant: 0

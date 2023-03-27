@@ -101,7 +101,6 @@ public class AudioManager : MonoBehaviour
     {
         bgmPlayer.Play();
     }
-
     public void StopBGM()
     {
         bgmPlayer.Stop();
