@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
     {
         Vector3 t_destPos = thePlayer.position + playerDistance + (hitDistance * transform.forward);
         transform.position = Vector3.Lerp(transform.position, t_destPos, Time.deltaTime * followSpeed);
+
+        OnCusor();
     }
 
     public IEnumerator ZoomCam()
@@ -32,5 +34,10 @@ public class CameraController : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
 
         hitDistance = 0;
+    }
+
+    void OnCusor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

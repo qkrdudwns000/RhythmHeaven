@@ -3496,28 +3496,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songList:
   - name: "\uD76C\uB9DD"
-    bpm: 130
+    bpm: 124
     sprite: {fileID: 21300000, guid: 79b89a6d57b7eaf49bc7e90042f6f41c, type: 3}
   - name: Heart of Witch
-    bpm: 180
+    bpm: 170
     sprite: {fileID: 21300000, guid: 0bd341417541c954284e557bfc37856b, type: 3}
   - name: Constant Moderato
-    bpm: 150
+    bpm: 112
     sprite: {fileID: 21300000, guid: 26f0180ed54c02e469253d75f76692a8, type: 3}
   - name: OBLIVION
-    bpm: 60
+    bpm: 141
     sprite: {fileID: 21300000, guid: dbb261d073b5c514199027e6a6917305, type: 3}
   - name: Nightmare
     bpm: 190
     sprite: {fileID: 21300000, guid: a43c55c2fb3de2242ba02b489f344be8, type: 3}
   - name: Far East Princess
-    bpm: 180
+    bpm: 102
     sprite: {fileID: 21300000, guid: 3bc214baad72f2743b8dabd9cd69d2fc, type: 3}
   - name: "\uACE0\uBC31, \uAF43, \uB291\uB300"
-    bpm: 180
+    bpm: 80
     sprite: {fileID: 21300000, guid: 72ca758258ad49f478e320070cdf514a, type: 3}
   - name: Bad Guys
-    bpm: 150
+    bpm: 90
     sprite: {fileID: 21300000, guid: bb0be71028e05db4db814c4b9e9bf4e8, type: 3}
   imgSong: {fileID: 852312070}
   decoImg: {fileID: 1947530779}
@@ -3580,7 +3580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 780, y: 270}
+  m_AnchoredPosition: {x: 776, y: 341.40588}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &365383700
