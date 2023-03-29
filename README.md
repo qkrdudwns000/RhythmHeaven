@@ -12,4 +12,4 @@ Unity 엔진을 기반으로 제작된 3D 리듬게임으로 포트폴리오 목
 
 #### 📺 영상 및 기술서
 - 동영상 : [youtube](https://www.youtube.com/watch?v=cQ_YCAxeAN8&ab_channel=EUREKA)
-- 기술서 : [googledrive](https://drive.google.com/file/d/1hvgLVdxEwDS1fUffgDWtvVgfLo2-7n88/view?usp=share_link)
+- 기술서 : [googledrive](https://drive.google.com/file/d/1DZQ1AoY3cZ3WrI3dS8TdaGghko9pLpQR/view?usp=share_link)
